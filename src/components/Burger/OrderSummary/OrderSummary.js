@@ -4,19 +4,21 @@ import Aux from '../../../hoc/Auxilary/Auxilary';
 import Button from '../../UI/Button/Button';
 
 class OrderSummary extends React.Component {
+    ingredientSummary = null;
     UNSAFE_componentWillUpdate(nextProps, nextState, nextContext) {
         console.log("[Order Summary] will update");
+        this.ingredientSummary = Object.keys(this.props.ingredients)
+            .map(igKey => {
+                return(
+                    <li key = {igKey}>
+                        <span style = {{textTransform: 'capitalize'}}>{igKey}</span>:
+                        <span>{this.props.ingredients[igKey]}</span>
+                    </li>
+                );
+            });
     }
 
-    ingredientSummary = Object.keys(this.props.ingredients)
-    .map(igKey => {
-        return(
-            <li key = {igKey}>
-                <span style = {{textTransform: 'capitalize'}}>{igKey}</span>:
-                <span>{this.props.ingredients[igKey]}</span>
-            </li>
-        );
-    });
+
     render() {
         return (
             <Aux>
