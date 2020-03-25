@@ -5,7 +5,7 @@ import Aux from "../Auxilary/Auxilary";
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
 import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 
-export class Layout extends Component {
+class Layout extends Component {
     state = {
         showSideDrawer: false
     };
@@ -34,3 +34,5 @@ export class Layout extends Component {
         );
     }
 }
+
+export default Layout;

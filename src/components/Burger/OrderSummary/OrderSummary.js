@@ -4,7 +4,7 @@ import Aux from '../../../hoc/Auxilary/Auxilary';
 import Button from '../../UI/Button/Button';
 
 class OrderSummary extends React.Component {
-    componentWillUpdate(nextProps, nextState, nextContext) {
+    UNSAFE_componentWillUpdate(nextProps, nextState, nextContext) {
         console.log("[Order Summary] will update");
     }
 
