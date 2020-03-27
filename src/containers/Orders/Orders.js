@@ -2,7 +2,6 @@ import * as React from "react";
 import {withRouter} from "react-router-dom";
 import Order from "../../components/Order/Order";
 import axios from '../../axios-orders';
-// import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 class Orders extends React.Component {
     state = {
@@ -11,7 +10,7 @@ class Orders extends React.Component {
     };
 
     ordersHandler = () => {
-        axios.get('orders.json').then(res => {
+        axios.get('orders').then(res => {
             const fetchedOrders = [];
             for (let key in res.data) {
                 fetchedOrders.push({

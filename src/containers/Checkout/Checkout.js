@@ -2,27 +2,10 @@ import React from 'react';
 import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
 import {Route, withRouter, Switch} from 'react-router-dom';
 import Spinner from "../../components/UI/Spinner/Spinner";
+import {connect} from 'react-redux';
 const ContactData = React.lazy(() => import('./ContactData/ContactData').then());
 
 class Checkout extends React.Component {
-    state = {
-        ingredients: null,
-        totalPrice: 0,
-    };
-
-    componentWillMount() {
-        const query = new URLSearchParams(this.props.location.search);
-        const ingredients = {};
-        let price = 0;
-        for (let param of query.entries()) {
-            if (param[0] === 'price') {
-                price = param[1];
-            } else {
-                ingredients[param[0]] = +param[1];
-            }
-        }
-        this.setState({ingredients: ingredients, totalPrice: price});
-    }
 
     checkoutCancelledHandler = () => {
         this.props.history.goBack();
@@ -36,7 +19,7 @@ class Checkout extends React.Component {
         return (
             <div>
                 <CheckoutSummary
-                    ingredients={this.state.ingredients}
+                    ingredients={this.props.ingredients}
                     checkoutCancelled={this.checkoutCancelledHandler}
                     checkoutContinued={this.checkoutContinuedHandler}
                 />
@@ -45,11 +28,7 @@ class Checkout extends React.Component {
                         path={this.props.match.path + "/contact-data"}
                         render={() => (
                             <React.Suspense fallback={<Spinner/>}>
-                                <ContactData
-                                    ingredients={this.state.ingredients}
-                                    price={this.state.totalPrice}
-                                    {...this.props}
-                                />
+                                <ContactData/>
                             </React.Suspense>
                         )}
                     />
@@ -59,4 +38,10 @@ class Checkout extends React.Component {
     }
 }
 
-export default withRouter(Checkout);
+const mapStateToProps = state => {
+    return {
+        ingredients: state.ingredients,
+    }
+};
+
+export default connect(mapStateToProps)(withRouter(Checkout));
